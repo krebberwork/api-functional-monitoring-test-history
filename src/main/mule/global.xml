@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:mongo="http://www.mulesoft.org/schema/mule/mongo"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/current/mule-mongo.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="69d88d08-3085-423b-a7c4-141e569ea035" file="config.yaml" />
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a17cba54-d728-4f79-a4c2-1bba79979f8f" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<mongo:config name="MongoDB_Config" doc:name="MongoDB Config" doc:id="60eb260f-133f-4c84-8c68-4db34f622425" >
+		<mongo:connection database="${mongodb.database}" username="${mongodb.user}" password="${mongodb.password}" >
+			<mongo:server-addresses >
+				<mongo:server-address host="${mongodb.host}" port="${mongodb.port}" />
+			</mongo:server-addresses>
+		</mongo:connection>
+	</mongo:config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="201c2cbf-371d-4940-907b-b8030c8c1ef1" >
+		<db:my-sql-connection host="${mysqldb.host}" port="${mysqldb.port}" user="${mysqldb.user}" password="${mysqldb.password}" database="${mysqldb.database}" />
+	</db:config>
+	<http:request-config name="HTTP_Platform_API_Request_configuration" doc:name="HTTP Request configuration" doc:id="8b3985ed-4298-4cbc-bcb4-b35359674db7" >
+		<http:request-connection host="${anypoint.platform.host}" protocol="HTTPS"/>
+	</http:request-config>
+</mule>

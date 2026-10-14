@@ -1,0 +1,20 @@
+CREATE TABLE afm_test_history (
+  id int NOT NULL AUTO_INCREMENT,
+  monitor_name varchar(255) DEFAULT NULL,
+  metadata_artifactId varchar(40) DEFAULT NULL,
+  metadata_configuration varchar(255) DEFAULT NULL,
+  metadata_executionId varchar(36) DEFAULT NULL,
+  metadata_executionNumber int DEFAULT NULL,
+  metadata_organizationId varchar(36) DEFAULT NULL,
+  metadata_scheduleId varchar(36)  DEFAULT NULL,
+  metadata_targetId varchar(36)  DEFAULT NULL,
+  metadata_testId varchar(255)  DEFAULT NULL,
+  endpoint_name varchar(255)  DEFAULT NULL,
+  endpoint_api_instance_id varchar(50)  DEFAULT NULL,
+  endpoint_api_name varchar(100)  DEFAULT NULL,
+  endpoint_api_version varchar(36)  DEFAULT NULL,
+  test_pass tinyint(1) DEFAULT NULL,
+  test_startdate datetime DEFAULT NULL,
+  test_total_time decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (id)
+);

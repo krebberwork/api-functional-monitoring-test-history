@@ -1,0 +1,741 @@
+{
+  "fileName": "main.dwl",
+  "kind": "TEST",
+  "metadata": {
+    "artifactId": "2aead1bccad9ccde0942a710c434c96e54e37378",
+    "configuration": "default",
+    "executionId": "4216c642-a5ae-461a-b069-8bae868709f0",
+    "executionNumber": "3265",
+    "organizationId": "YOUR_ORG_ID",
+    "scheduleId": "ca2922a6-a87e-4a63-a940-95edcd7047f1",
+    "targetId": "75c403a6-8054-43ec-b611-63b9efff820d",
+    "testId": "YOUR_ORG_ID:traffic-generator-7461:1.0.0",
+    "token": ""
+  },
+  "name": "Traffic Generator",
+  "parameters": {},
+  "pass": true,
+  "prefix": "SUITE",
+  "result": [
+    {
+      "assertions": [
+        {
+          "kind": "Assertion",
+          "name": "200 must equal 200",
+          "pass": true,
+          "result": {
+            "expectedValue": "200",
+            "givenValue": "200",
+            "kind": "Assertion::Equal"
+          },
+          "softFail": false
+        }
+      ],
+      "kind": "HTTP",
+      "name": "GET http://omni-channel-api.example.com/api/products/search",
+      "pass": true,
+      "prefix": "GET",
+      "result": {
+        "err": false,
+        "options": {
+          "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          "method": "GET",
+          "url": "http://omni-channel-api.example.com/api/products/search"
+        },
+        "request": {
+          "headers": {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "application/json",
+            "Host": "omni-channel-api.example.com",
+            "User-Agent": "DataWeave/2.0"
+          },
+          "httpVersion": "HTTP/1.1",
+          "ip": "3.129.160.52",
+          "method": "GET",
+          "path": "/api/products/search",
+          "port": 80,
+          "url": "http://omni-channel-api.example.com/api/products/search"
+        },
+        "response": {
+          "body": [
+            {
+              "available_stock": 2800,
+              "full_description": "Playskool sesame street play all day Elmo",
+              "id": 1,
+              "name": "ELMO",
+              "pictures": [
+                "/wcsstore/HTSStorefrontAssetStore/Attachment/HomePage/Product eSpots/Play-All-Day-Elmo.png"
+              ],
+              "rating": 5,
+              "rel_self": "http://omni-channel-experience-api.example.com/api/products/product/1",
+              "unit_original_price": 78,
+              "unit_price": 99.9
+            },
+            {
+              "available_stock": 2800,
+              "full_description": "Playskool sesame street play all day Elmo",
+              "id": 2,
+              "name": "ELMO",
+              "pictures": [
+                "/wcsstore/HTSStorefrontAssetStore/Attachment/HomePage/Product eSpots/Play-All-Day-Elmo.png"
+              ],
+              "rating": 5,
+              "rel_self": "http://omni-channel-experience-api.example.com/api/products/product/2",
+              "unit_original_price": 78,
+              "unit_price": 99.9
+            }
+          ],
+          "contentType": "application/json; charset=UTF-8",
+          "headers": {
+            "Connection": "Close",
+            "Content-Length": "876",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Date": "Sun, 27 Oct 2024 23:01:34 GMT",
+            "Server": "nginx"
+          },
+          "mime": "application/json",
+          "payload": {
+            "closed": false
+          },
+          "status": 200,
+          "statusText": "OK"
+        },
+        "timers": {
+          "connect": 29.858749389648438,
+          "dns": 6.269221782684326,
+          "receive": 68.85914611816406,
+          "send": 0.01852400042116642,
+          "total": 1342.34619140625,
+          "wait": 1236.6937255859375
+        }
+      },
+      "softFail": false,
+      "startDate": 1730070095.055518,
+      "time": 1342.34619140625
+    },
+    {
+      "assertions": [
+        {
+          "kind": "Assertion",
+          "name": "200 must equal 200",
+          "pass": true,
+          "result": {
+            "expectedValue": "200",
+            "givenValue": "200",
+            "kind": "Assertion::Equal"
+          },
+          "softFail": false
+        }
+      ],
+      "kind": "HTTP",
+      "name": "GET http://omni-channel-api.example.com/api/products/product/1",
+      "pass": true,
+      "prefix": "GET",
+      "result": {
+        "err": false,
+        "options": {
+          "headers": {
+            "Accept": "application/json",
+            "Content-Type": "applicaton/json"
+          },
+          "method": "GET",
+          "url": "http://omni-channel-api.example.com/api/products/product/1"
+        },
+        "request": {
+          "headers": {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "applicaton/json",
+            "Host": "omni-channel-api.example.com",
+            "User-Agent": "DataWeave/2.0"
+          },
+          "httpVersion": "HTTP/1.1",
+          "ip": "3.129.160.52",
+          "method": "GET",
+          "path": "/api/products/product/1",
+          "port": 80,
+          "url": "http://omni-channel-api.example.com/api/products/product/1"
+        },
+        "response": {
+          "body": {
+            "available_stock": 2800,
+            "full_description": "Playskool sesame street play all day Elmo",
+            "id": 1,
+            "name": "ELMO",
+            "pictures": [
+              "/wcsstore/HTSStorefrontAssetStore/Attachment/HomePage/Product eSpots/Play-All-Day-Elmo.png"
+            ],
+            "rating": 5,
+            "rel_self": "http://omni-channel-experience-api.example.com/api/products/product/1",
+            "unit_original_price": 78,
+            "unit_price": 99.9
+          },
+          "contentType": "application/json; charset=UTF-8",
+          "headers": {
+            "Connection": "Close",
+            "Content-Length": "409",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Date": "Sun, 27 Oct 2024 23:01:35 GMT",
+            "Server": "nginx"
+          },
+          "mime": "application/json",
+          "payload": {
+            "closed": false
+          },
+          "status": 200,
+          "statusText": "OK"
+        },
+        "timers": {
+          "connect": 12.790926933288574,
+          "dns": 0.1597609966993332,
+          "receive": 0.6540259718894958,
+          "send": 0.014582999981939793,
+          "total": 323.4002685546875,
+          "wait": 309.75665283203125
+        }
+      },
+      "softFail": false,
+      "startDate": 1730070095.472662,
+      "time": 323.4002685546875
+    },
+    {
+      "assertions": [
+        {
+          "kind": "Assertion",
+          "name": "204 must equal 204",
+          "pass": true,
+          "result": {
+            "expectedValue": "204",
+            "givenValue": "204",
+            "kind": "Assertion::Equal"
+          },
+          "softFail": false
+        }
+      ],
+      "kind": "HTTP",
+      "name": "PUT http://omni-channel-api.example.com/api/users/user/123/shopping_cart",
+      "pass": true,
+      "prefix": "PUT",
+      "result": {
+        "err": false,
+        "options": {
+          "body": {
+            "closed": false
+          },
+          "headers": {
+            "Accept": "application/json",
+            "Content-Length": 398,
+            "Content-Type": "application/json"
+          },
+          "method": "PUT",
+          "url": "http://omni-channel-api.example.com/api/users/user/123/shopping_cart"
+        },
+        "request": {
+          "headers": {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Length": "398",
+            "Content-Type": "application/json",
+            "Host": "omni-channel-api.example.com",
+            "User-Agent": "DataWeave/2.0"
+          },
+          "httpVersion": "HTTP/1.1",
+          "ip": "3.129.160.52",
+          "method": "PUT",
+          "path": "/api/users/user/123/shopping_cart",
+          "payload": {
+            "closed": false
+          },
+          "port": 80,
+          "url": "http://omni-channel-api.example.com/api/users/user/123/shopping_cart"
+        },
+        "response": {
+          "body": null,
+          "contentType": "application/json; charset=UTF-8",
+          "headers": {
+            "Connection": "Close",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Date": "Sun, 27 Oct 2024 23:01:36 GMT",
+            "Server": "nginx"
+          },
+          "mime": "application/json",
+          "payload": {
+            "closed": false
+          },
+          "status": 204,
+          "statusText": "No Content"
+        },
+        "timers": {
+          "connect": 13.045964241027832,
+          "dns": 0.17436499893665314,
+          "receive": 0.4408990144729614,
+          "send": 0.31746700406074524,
+          "total": 469.3478088378906,
+          "wait": 455.34979248046875
+        }
+      },
+      "softFail": false,
+      "startDate": 1730070096.136717,
+      "time": 469.3478088378906
+    },
+    {
+      "assertions": [
+        {
+          "kind": "Assertion",
+          "name": "200 must equal 200",
+          "pass": true,
+          "result": {
+            "expectedValue": "200",
+            "givenValue": "200",
+            "kind": "Assertion::Equal"
+          },
+          "softFail": false
+        }
+      ],
+      "kind": "HTTP",
+      "name": "GET http://omni-channel-api.example.com/api/users/user/123/shopping_cart",
+      "pass": true,
+      "prefix": "GET",
+      "result": {
+        "err": false,
+        "options": {
+          "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          "method": "GET",
+          "url": "http://omni-channel-api.example.com/api/users/user/123/shopping_cart"
+        },
+        "request": {
+          "headers": {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "application/json",
+            "Host": "omni-channel-api.example.com",
+            "User-Agent": "DataWeave/2.0"
+          },
+          "httpVersion": "HTTP/1.1",
+          "ip": "3.129.160.52",
+          "method": "GET",
+          "path": "/api/users/user/123/shopping_cart",
+          "port": 80,
+          "url": "http://omni-channel-api.example.com/api/users/user/123/shopping_cart"
+        },
+        "response": {
+          "body": {
+            "cost": {
+              "final_price": 320.679,
+              "price": 299.7,
+              "tax": 20.979
+            },
+            "items": [
+              {
+                "product_id": "1",
+                "quantity": 1,
+                "rel_product": "http://omni-channel-experience-api.example.com/api/products/product/1"
+              },
+              {
+                "product_id": "2",
+                "quantity": 2,
+                "rel_product": "http://omni-channel-experience-api.example.com/api/products/product/2"
+              }
+            ],
+            "last_modification_date": "2024-10-27T23:01:36.017Z"
+          },
+          "contentType": "application/json; charset=UTF-8",
+          "headers": {
+            "Connection": "Close",
+            "Content-Length": "480",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Date": "Sun, 27 Oct 2024 23:01:36 GMT",
+            "Server": "nginx"
+          },
+          "mime": "application/json",
+          "payload": {
+            "closed": false
+          },
+          "status": 200,
+          "statusText": "OK"
+        },
+        "timers": {
+          "connect": 15.392127990722656,
+          "dns": 0.1962839961051941,
+          "receive": 0.5830540060997009,
+          "send": 0.04184100031852722,
+          "total": 175.49459838867188,
+          "wait": 159.25564575195312
+        }
+      },
+      "softFail": false,
+      "startDate": 1730070096.422168,
+      "time": 175.49459838867188
+    },
+    {
+      "assertions": [
+        {
+          "kind": "Assertion",
+          "name": "201 must equal 201",
+          "pass": true,
+          "result": {
+            "expectedValue": "201",
+            "givenValue": "201",
+            "kind": "Assertion::Equal"
+          },
+          "softFail": false
+        }
+      ],
+      "kind": "HTTP",
+      "name": "POST http://omni-channel-api.example.com/api/users/user/123/shopping_cart/confirmation",
+      "pass": true,
+      "prefix": "POST",
+      "result": {
+        "err": false,
+        "options": {
+          "body": {
+            "closed": false
+          },
+          "headers": {
+            "Accept": "application/json",
+            "Content-Length": 560,
+            "Content-Type": "application/json"
+          },
+          "method": "POST",
+          "url": "http://omni-channel-api.example.com/api/users/user/123/shopping_cart/confirmation"
+        },
+        "request": {
+          "headers": {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Length": "560",
+            "Content-Type": "application/json",
+            "Host": "omni-channel-api.example.com",
+            "User-Agent": "DataWeave/2.0"
+          },
+          "httpVersion": "HTTP/1.1",
+          "ip": "3.129.160.52",
+          "method": "POST",
+          "path": "/api/users/user/123/shopping_cart/confirmation",
+          "payload": {
+            "closed": false
+          },
+          "port": 80,
+          "url": "http://omni-channel-api.example.com/api/users/user/123/shopping_cart/confirmation"
+        },
+        "response": {
+          "body": {
+            "items": [
+              {
+                "product": {
+                  "id": 124
+                },
+                "product_id": 124,
+                "quantity": 103,
+                "rel_product": "http://omni-channel-experience-api.example.com/api/products/product/124"
+              },
+              {
+                "product": {
+                  "id": 123
+                },
+                "product_id": 123,
+                "quantity": 51,
+                "rel_product": "http://omni-channel-experience-api.example.com/api/products/product/123"
+              }
+            ],
+            "order_id": "1",
+            "order_number": "1",
+            "tracking_code": null
+          },
+          "contentType": "application/json; charset=UTF-8",
+          "headers": {
+            "Connection": "Close",
+            "Content-Length": "507",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Date": "Sun, 27 Oct 2024 23:01:38 GMT",
+            "Server": "nginx"
+          },
+          "mime": "application/json",
+          "payload": {
+            "closed": false
+          },
+          "status": 201,
+          "statusText": "Created"
+        },
+        "timers": {
+          "connect": 12.78058910369873,
+          "dns": 0.18653200566768646,
+          "receive": 0.5618069767951965,
+          "send": 0.04810100048780441,
+          "total": 2443.468994140625,
+          "wait": 2429.869873046875
+        }
+      },
+      "softFail": false,
+      "startDate": 1730070098.945076,
+      "time": 2443.468994140625
+    },
+    {
+      "assertions": [
+        {
+          "kind": "Assertion",
+          "name": "200 must equal 200",
+          "pass": true,
+          "result": {
+            "expectedValue": "200",
+            "givenValue": "200",
+            "kind": "Assertion::Equal"
+          },
+          "softFail": false
+        }
+      ],
+      "kind": "HTTP",
+      "name": "GET http://omni-channel-api.example.com/api/orders/search?user_id=1964401a-a8b3-40c1-b86e-d8b9f75b5842",
+      "pass": true,
+      "prefix": "GET",
+      "result": {
+        "err": false,
+        "options": {
+          "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          "method": "GET",
+          "url": "http://omni-channel-api.example.com/api/orders/search?user_id=1964401a-a8b3-40c1-b86e-d8b9f75b5842"
+        },
+        "request": {
+          "headers": {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "application/json",
+            "Host": "omni-channel-api.example.com",
+            "User-Agent": "DataWeave/2.0"
+          },
+          "httpVersion": "HTTP/1.1",
+          "ip": "3.129.160.52",
+          "method": "GET",
+          "path": "/api/orders/search?user_id=1964401a-a8b3-40c1-b86e-d8b9f75b5842",
+          "port": 80,
+          "url": "http://omni-channel-api.example.com/api/orders/search?user_id=1964401a-a8b3-40c1-b86e-d8b9f75b5842"
+        },
+        "response": {
+          "body": [
+            {
+              "cost": {
+                "final_price": 0,
+                "price": 0,
+                "tax": 0
+              },
+              "creation_date": "2014-08-07T01:02:03",
+              "items": [
+                {
+                  "product": {
+                    "id": 123
+                  },
+                  "product_id": 123,
+                  "quantity": 103,
+                  "rel_product": "http://omni-channel-experience-api.example.com/api/products/product/123?user_id=id-21323"
+                },
+                {
+                  "product": {
+                    "id": 11
+                  },
+                  "product_id": 11,
+                  "quantity": 51,
+                  "rel_product": "http://omni-channel-experience-api.example.com/api/products/product/11?user_id=id-21323"
+                }
+              ],
+              "order_id": "1",
+              "rel_self": "http://omni-channel-experience-api.example.com/api/orders/order/1",
+              "shipping": {
+                "rel_address": "1",
+                "shipping_address_id": "1"
+              },
+              "tracking_code": null
+            },
+            {
+              "cost": {
+                "final_price": 0,
+                "price": 0,
+                "tax": 0
+              },
+              "creation_date": "2014-08-07T01:02:03",
+              "items": [
+                {
+                  "product": {
+                    "id": 11
+                  },
+                  "product_id": 11,
+                  "quantity": 103,
+                  "rel_product": "http://omni-channel-experience-api.example.com/api/products/product/11?user_id=id-21323"
+                },
+                {
+                  "product": {
+                    "id": 12
+                  },
+                  "product_id": 12,
+                  "quantity": 51,
+                  "rel_product": "http://omni-channel-experience-api.example.com/api/products/product/12?user_id=id-21323"
+                }
+              ],
+              "order_id": "id-q34qwer-qer-qewrqw",
+              "rel_self": "http://omni-channel-experience-api.example.com/api/orders/order/id-q34qwer-qer-qewrqw",
+              "shipping": {
+                "rel_address": "id-q34qwer-qer-qewrqw",
+                "shipping_address_id": "id-q34qwer-qer-qewrqw"
+              },
+              "tracking_code": null
+            }
+          ],
+          "contentType": "application/json; charset=UTF-8",
+          "headers": {
+            "Connection": "Close",
+            "Content-Length": "1807",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Date": "Sun, 27 Oct 2024 23:01:39 GMT",
+            "Server": "nginx"
+          },
+          "mime": "application/json",
+          "payload": {
+            "closed": false
+          },
+          "status": 200,
+          "statusText": "OK"
+        },
+        "timers": {
+          "connect": 18.288360595703125,
+          "dns": 0.18477100133895874,
+          "receive": 0.6506180167198181,
+          "send": 0.017511999234557152,
+          "total": 289.7864990234375,
+          "wait": 270.6211242675781
+        }
+      },
+      "softFail": false,
+      "startDate": 1730070099.314731,
+      "time": 289.7864990234375
+    },
+    {
+      "assertions": [
+        {
+          "kind": "Assertion",
+          "name": "200 must equal 200",
+          "pass": true,
+          "result": {
+            "expectedValue": "200",
+            "givenValue": "200",
+            "kind": "Assertion::Equal"
+          },
+          "softFail": false
+        }
+      ],
+      "kind": "HTTP",
+      "name": "GET http://omni-channel-api.example.com/api/orders/order/1?user_id=1964401a-a8b3-40c1-b86e-d8b9f75b5842",
+      "pass": true,
+      "prefix": "GET",
+      "result": {
+        "err": false,
+        "options": {
+          "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          "method": "GET",
+          "url": "http://omni-channel-api.example.com/api/orders/order/1?user_id=1964401a-a8b3-40c1-b86e-d8b9f75b5842"
+        },
+        "request": {
+          "headers": {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "application/json",
+            "Host": "omni-channel-api.example.com",
+            "User-Agent": "DataWeave/2.0"
+          },
+          "httpVersion": "HTTP/1.1",
+          "ip": "3.129.160.52",
+          "method": "GET",
+          "path": "/api/orders/order/1?user_id=1964401a-a8b3-40c1-b86e-d8b9f75b5842",
+          "port": 80,
+          "url": "http://omni-channel-api.example.com/api/orders/order/1?user_id=1964401a-a8b3-40c1-b86e-d8b9f75b5842"
+        },
+        "response": {
+          "body": {
+            "cost": {
+              "final_price": 16461.522,
+              "price": 15384.6,
+              "tax": 1076.922
+            },
+            "creation_date": "",
+            "items": [
+              {
+                "product": {
+                  "id": 124
+                },
+                "product_id": 124,
+                "quantity": 103,
+                "rel_product": "http://mobile-api.example.com/api124?user_id=id-21323"
+              },
+              {
+                "product": {
+                  "id": 123
+                },
+                "product_id": 123,
+                "quantity": 51,
+                "rel_product": "http://mobile-api.example.com/api123?user_id=id-21323"
+              }
+            ],
+            "order_id": "1",
+            "payment": {
+              "credit_card_id": "",
+              "rel_card": ""
+            },
+            "rel_self": "/orders/order/1?user_id=id-21323",
+            "shipping": {
+              "rel_address": "1",
+              "shipping_address_id": "1"
+            },
+            "tracking_code": null
+          },
+          "contentType": "application/json; charset=UTF-8",
+          "headers": {
+            "Connection": "Close",
+            "Content-Length": "765",
+            "Content-Type": "application/json; charset=UTF-8",
+            "Date": "Sun, 27 Oct 2024 23:01:39 GMT",
+            "Server": "nginx"
+          },
+          "mime": "application/json",
+          "payload": {
+            "closed": false
+          },
+          "status": 200,
+          "statusText": "OK"
+        },
+        "timers": {
+          "connect": 13.18181324005127,
+          "dns": 0.21490000188350677,
+          "receive": 0.514710009098053,
+          "send": 0.016378000378608704,
+          "total": 596.7023315429688,
+          "wait": 582.75439453125
+        }
+      },
+      "softFail": false,
+      "startDate": 1730070099.960172,
+      "time": 596.7023315429688
+    }
+  ],
+  "skip": false,
+  "softFail": false,
+  "startDate": "2024-10-27T23:01:33",
+  "time": 0
+}

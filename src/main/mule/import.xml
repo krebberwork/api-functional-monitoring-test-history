@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:mongo="http://www.mulesoft.org/schema/mule/mongo" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/current/mule-mongo.xsd">
+	<sub-flow name="GetAPINameAndId" doc:id="e8b69ecb-7790-44f2-bb6f-7a1624a18d1a" >
+							<http:request method="POST" doc:name="Get Anypoint Platform Token" doc:id="b6053488-5c09-42e0-a8ae-215777b79bb9" config-ref="HTTP_Platform_API_Request_configuration" path="${anypoint.platform.apis.coreservices.token.path}" target="token" targetValue="#[payload.access_token]">
+			<http:body><![CDATA[#[%dw 2.0 output application/json
+--- 
+{
+   "client_id" :  Mule::p('anypoint.platform.auth.client_id'),
+   "client_secret": Mule::p('anypoint.platform.auth.client_secret'),
+   "grant_type" : "client_credentials"
+}]]]></http:body>
+		</http:request>
+		<http:request method="GET" doc:name="Get API Details" doc:id="4f79a06f-8134-494c-92ba-819ec2ece58b" config-ref="HTTP_Platform_API_Request_configuration" path="${anypoint.platform.apis.apimanager.apidetails.path}" target="apiDetails">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"Authorization" : "Bearer " ++ vars.token
+}]]]></http:headers>
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"orgId" : Mule::p('anypoint.platform.org_id'),
+	"apiId" : vars.afmTestHistoryFlat.endpoint_api_instance_id,
+	"envId" : Mule::p('anypoint.platform.env_id')
+}]]]></http:uri-params>
+		</http:request>
+		<http:request method="GET" doc:name="Get Asset Details" doc:id="e18f8ac9-d4db-4ac0-95c6-ad00e55ed821" config-ref="HTTP_Platform_API_Request_configuration" path="${anypoint.platform.apis.exchange.assetdetails.path}" target="assetDetails">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"Authorization" : "Bearer " ++ vars.token
+}]]]></http:headers>
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"appId" : vars.apiDetails.assetId,
+	"orgId" : Mule::p('anypoint.platform.org_id')
+}]]]></http:uri-params>
+		</http:request>
+	</sub-flow>
+	<flow name="load-monitoring-historyFlow" doc:id="6fe8bcae-f8aa-4200-bc03-3c72e04ce4a9" >
+		<http:listener doc:name="Listener" doc:id="bba8cf03-4dd3-499a-a456-23bfd125cb31" config-ref="HTTP_Listener_config" path="/load"/>
+		<set-variable value="#[payload]" doc:name="Set Variable" doc:id="11205942-d8de-4875-b2e8-4326f2255eb5" variableName="afmTestHistory"/>
+		<async doc:name="Async" doc:id="7e7f2a03-b6f9-4d97-990d-5841166b7913" >
+			<choice doc:name="MongoDB Archive Enabled?" doc:id="3d0f6a2e-8c1b-4f57-9a64-2b7e5c9d1f03" >
+				<when expression="#[(Mule::p('mongodb.enabled') default 'false') == 'true']">
+					<try doc:name="Try" doc:id="7a4c2e91-5b3d-4e68-8f10-c9d2a6b4e715" >
+						<mongo:insert-document doc:name="Insert document" doc:id="6172bb49-63b6-4589-afdd-d081d1725ef3" config-ref="MongoDB_Config" collectionName="#[Mule::p('mongodb.collection')]">
+							<mongo:document><![CDATA[#[vars.afmTestHistory]]]></mongo:document>
+						</mongo:insert-document>
+						<error-handler >
+							<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="e5b81f3c-2d94-4a7e-b6c0-41f9d8a2c367" />
+						</error-handler>
+					</try>
+				</when>
+			</choice>
+			<set-variable value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"monitor_name": vars.afmTestHistory.name,&#10;	"metadata_artifactId": vars.afmTestHistory.metadata.artifactId,&#10;	"metadata_configuration": vars.afmTestHistory.metadata.configuration,&#10;	"metadata_executionId": vars.afmTestHistory.metadata.executionId,&#10;	"metadata_executionNumber": vars.afmTestHistory.metadata.executionNumber,&#10;	"metadata_organizationId": vars.afmTestHistory.metadata.organizationId,&#10;	"metadata_scheduleId": vars.afmTestHistory.metadata.scheduleId,&#10;	"metadata_targetId": vars.afmTestHistory.metadata.targetId,&#10;	"metadata_testId": vars.afmTestHistory.metadata.testId&#10;}]' doc:name="AFM Test History Execution Header" doc:id="74827249-213d-493f-9e92-b902e385539d" variableName="afmTestHistoryExecutionHeader" />
+			<foreach doc:name="For Each Test History Result" doc:id="982c9262-5d50-42f0-9082-d236052db0e2" collection="#[vars.afmTestHistory.result]">
+			<set-variable value="#[payload]" doc:name="AFM Test History Result" doc:id="9d62174a-fd42-4eab-8f34-f6fbef2dd60b" variableName="afmTestHistoryResult" />
+			<foreach doc:name="For Each Test History Execution Endpoint" doc:id="f5a4a135-c80e-49fd-9b39-75fb3cc5f945" collection="#[vars.afmTestHistoryResult.result]">
+				<set-variable value="#[payload]" doc:name="AFM Test History Execution Result" doc:id="8be81689-8555-4a2f-9607-8ee74628913f" variableName="afmTestHistoryExecutionResult" />
+					<ee:transform doc:name="Flatten Test History" doc:id="5c301ce6-c467-4a6c-bdaa-93a5d82f114f">
+						<ee:message>
+						</ee:message>
+					<ee:variables>
+						<ee:set-variable variableName="afmTestHistoryFlat"><![CDATA[%dw 2.0
+output application/json
+---
+vars.afmTestHistoryExecutionHeader ++
+{
+	"endpoint_name": vars.afmTestHistoryExecutionResult.name,
+	"endpoint_api_instance_id": vars.afmTestHistoryExecutionResult.result.options.headers.'X-Api-Instance-Id',
+	"test_pass": vars.afmTestHistoryExecutionResult.pass,
+	"test_startdate": vars.afmTestHistoryExecutionResult.startDate,
+	"test_total_time": vars.afmTestHistoryExecutionResult.time
+} ]]></ee:set-variable>
+					</ee:variables>
+					</ee:transform>
+			<flow-ref doc:name="Get API Name and Version" doc:id="a4c75584-ecf7-423d-8be5-21e917afb26d" name="GetAPINameAndId" />
+				<ee:transform doc:name="Append API details" doc:id="b9d65da8-c06d-4fef-9736-91e0eb1273ff">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+vars.afmTestHistoryFlat ++
+{
+	"endpoint_api_name": vars.assetDetails.name,
+	"endpoint_api_version": vars.apiDetails.productVersion
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			<db:insert doc:name="Insert" doc:id="8f550f7b-1839-4761-bf6c-8f5b125e34e9" config-ref="Database_Config">
+						<db:sql><![CDATA[INSERT INTO afm_test_history
+(monitor_name,
+metadata_artifactId,
+metadata_configuration,
+metadata_executionId,
+metadata_executionNumber,
+metadata_organizationId,
+metadata_scheduleId,
+metadata_targetId,
+metadata_testId,
+endpoint_name,
+endpoint_api_instance_id,
+endpoint_api_name,
+endpoint_api_version,
+test_pass,
+test_startdate,
+test_total_time)
+VALUES
+(:monitor_name,
+:metadata_artifactId,
+:metadata_configuration,
+:metadata_executionId,
+:metadata_executionNumber,
+:metadata_organizationId,
+:metadata_scheduleId,
+:metadata_targetId,
+:metadata_testId,
+:endpoint_name,
+:endpoint_api_instance_id,
+:endpoint_api_name,
+:endpoint_api_version,
+:test_pass,
+FROM_UNIXTIME(:test_startdate),
+:test_total_time);
+]]></db:sql>
+						<db:input-parameters><![CDATA[#[payload]]]></db:input-parameters>
+					</db:insert>
+			</foreach>
+		</foreach>
+		</async>
+		<set-payload value='#["Payload received."]' doc:name="Set Payload" doc:id="95fc9354-653b-42d9-b63f-2b37473be034" />
+	</flow>
+</mule>

@@ -1,0 +1,14 @@
+%dw 2.0
+
+type auto_e8b69ecb_7790_44f2_bb6f_7a1624a18d1a_Output_Variables_afmTestHistoryExecutionHeader = {|
+  monitor_name: Any, 
+  metadata_artifactId: Any, 
+  metadata_configuration: Any, 
+  metadata_executionId: Any, 
+  metadata_executionNumber: Any, 
+  metadata_organizationId: Any, 
+  metadata_scheduleId: Any, 
+  metadata_targetId: Any, 
+  metadata_testId: Any
+|}
+

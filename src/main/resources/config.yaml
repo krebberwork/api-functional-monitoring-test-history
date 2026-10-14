@@ -1,0 +1,45 @@
+http:
+  host: "0.0.0.0"
+  port: "8081"
+
+mongodb:
+  # Optional raw-result archive. Set to "true" to store every AFM result document in MongoDB.
+  enabled: "false"
+  host: "YOUR_MONGODB_HOST"
+  port: "27017"
+  database: "demo"
+  collection: "afm-test-history-alc"
+  # mongodb.user and mongodb.password are secure properties supplied at deploy time.
+  # Empty defaults let the app start when MongoDB is disabled.
+  user: ""
+  password: ""
+
+mysqldb:
+  host: "YOUR_MYSQL_HOST"
+  port: "3306"
+  database: "demodb"
+  # mysqldb.user and mysqldb.password are secure properties supplied at deploy time
+
+anypoint:
+  platform:
+    host: "anypoint.mulesoft.com"
+    # anypoint.platform.auth.client_id and anypoint.platform.auth.client_secret
+    # are secure properties supplied at deploy time
+    org_id: "YOUR_ORG_ID"
+    env_id: "YOUR_ENV_ID" 
+    responseTimeout: "30000"    
+    apis:
+      coreservices:
+        maxConcurrency: "100"
+        login:
+          path: "/accounts/login"
+        token:
+          path: "/accounts/api/v2/oauth2/token"
+      apimanager:
+        apidetails:
+          path: "/apimanager/api/v1/organizations/{orgId}/environments/{envId}/apis/{apiId}"
+      exchange:
+        assetdetails:
+          path: "/exchange/api/v2/assets/{orgId}/{appId}" 
+      
+ 

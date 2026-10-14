@@ -1,0 +1,12 @@
+{
+    "minMuleVersion": "4.9.0",
+    "javaSpecificationVersions": ["17"],
+    "secureProperties": [
+        "mongodb.user",
+        "mongodb.password",
+        "mysqldb.user",
+        "mysqldb.password",
+        "anypoint.platform.auth.client_id",
+        "anypoint.platform.auth.client_secret"
+    ]
+}

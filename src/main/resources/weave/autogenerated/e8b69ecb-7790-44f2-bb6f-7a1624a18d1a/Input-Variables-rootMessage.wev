@@ -1,0 +1,7 @@
+%dw 2.0
+
+type auto_e8b69ecb_7790_44f2_bb6f_7a1624a18d1a_Input_Variables_rootMessage = {|
+  payload: Any, 
+  attributes: Null
+|} {"typeId": "org.mule.runtime.api.message.Message"}
+

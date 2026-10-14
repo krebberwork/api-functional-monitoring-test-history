@@ -1,0 +1,21 @@
+%dw 2.0
+
+type auto_e8b69ecb_7790_44f2_bb6f_7a1624a18d1a_Input_Payload = {|
+  metadata_organizationId?: String, 
+  metadata_configuration?: String, 
+  metadata_artifactId?: String, 
+  endpoint_name?: String, 
+  metadata_executionId?: String, 
+  metadata_targetId?: String, 
+  metadata_scheduleId?: String, 
+  endpoint_api_instance_id?: String, 
+  endpoint_api_name?: String, 
+  monitor_name?: String, 
+  test_total_time?: String, 
+  metadata_executionNumber?: String, 
+  test_pass?: String, 
+  endpoint_api_version?: String, 
+  metadata_testId?: String, 
+  test_startdate?: String
+|}
+

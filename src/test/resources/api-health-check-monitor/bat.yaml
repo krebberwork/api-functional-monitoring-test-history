@@ -1,0 +1,9 @@
+suite:
+  name: API Health Check
+files:
+  - file: main.dwl
+reporters:
+  - type: Custom
+    options:
+      URL: "http://YOUR_APP_NAME.YOUR_REGION.cloudhub.io/load"
+      HEADERS: "'Content-Type':'application/json'"

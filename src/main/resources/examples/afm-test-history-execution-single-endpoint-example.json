@@ -1,0 +1,118 @@
+{
+  "fileName": "main.dwl",
+  "kind": "TEST",
+  "metadata": {
+    "artifactId": "524ce5901a86687463732b052cfdad000bb5a2be",
+    "configuration": "default",
+    "executionId": "afaab09d-83e4-4e72-a318-0d370a0729bd",
+    "executionNumber": "1",
+    "organizationId": "YOUR_ORG_ID",
+    "targetId": "75c403a6-8054-43ec-b611-63b9efff820d",
+    "testId": "YOUR_ORG_ID:api-health-check:1.0.0",
+    "token": ""
+  },
+  "name": "API Health Check",
+  "parameters": {},
+  "pass": true,
+  "prefix": "SUITE",
+  "result": [
+    {
+      "kind": "TEST",
+      "name": "Assert endpoint: ",
+      "pass": true,
+      "prefix": "SHOULD",
+      "result": [
+        {
+          "assertions": [
+            {
+              "kind": "Assertion",
+              "name": "200 must equal 200",
+              "pass": true,
+              "result": {
+                "expectedValue": "200",
+                "givenValue": "200",
+                "kind": "Assertion::Equal"
+              },
+              "softFail": false
+            }
+          ],
+          "kind": "HTTP",
+          "name": "GET https://contacts-api.example.com/api/ping",
+          "pass": true,
+          "prefix": "GET",
+          "result": {
+            "err": false,
+            "options": {
+              "headers": {
+                "Client_id": "REDACTED_CLIENT_ID",
+                "Client_secret": "REDACTED_CLIENT_SECRET",
+                "X-Api-Instance-Id": "12345678"
+              },
+              "method": "GET",
+              "url": "https://contacts-api.example.com/api/ping"
+            },
+            "request": {
+              "headers": {
+                "Accept": "text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2",
+                "Accept-Encoding": "gzip,deflate",
+                "Client_id": "REDACTED_CLIENT_ID",
+                "Client_secret": "REDACTED_CLIENT_SECRET",
+                "Connection": "close",
+                "Host": "contacts-api.example.com:443",
+                "User-Agent": "DataWeave/2.0",
+                "X-Api-Instance-Id": "12345678"
+              },
+              "httpVersion": "HTTP/1.1",
+              "ip": "13.58.251.59",
+              "method": "GET",
+              "path": "/api/ping",
+              "port": 443,
+              "url": "https://contacts-api.example.com/api/ping"
+            },
+            "response": {
+              "body": {
+                "apiName": "",
+                "apiVersion": "",
+                "status": "OK",
+                "timestamp": "2024-10-28T03:51:23.110159432Z"
+              },
+              "contentType": "application/json; charset=UTF-8",
+              "headers": {
+                "Connection": "Close",
+                "Content-Length": "106",
+                "Content-Type": "application/json; charset=UTF-8",
+                "Date": "Mon, 28 Oct 2024 03:51:23 GMT",
+                "Strict-Transport-Security": "max-age=31536000; includeSubdomains",
+                "X-Correlation-Id": "7832d4ba-a703-4306-824f-583a7fa00dd5"
+              },
+              "mime": "application/json",
+              "payload": {
+                "closed": false
+              },
+              "status": 200,
+              "statusText": "OK"
+            },
+            "timers": {
+              "connect": 42.71855163574219,
+              "dns": 9.666908264160156,
+              "receive": 1.2809940576553345,
+              "send": 0.013961000367999077,
+              "ssl": 0.6013249754905701,
+              "total": 80.6925048828125,
+              "wait": 26.38199234008789
+            }
+          },
+          "softFail": false,
+          "startDate": 1730087483.127022,
+          "time": 80.6925048828125
+        }
+      ],
+      "softFail": true,
+      "startDate": 1730087483.031863
+    }
+  ],
+  "skip": false,
+  "softFail": false,
+  "startDate": "2024-10-28T03:51:23",
+  "time": 0
+}
