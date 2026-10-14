@@ -99,7 +99,7 @@ Non-secret defaults are in [`src/main/resources/config.yaml`](src/main/resources
 | `mongodb.enabled` | Archive raw results in MongoDB (`true`/`false`) | `false` |
 | `mongodb.host` / `mongodb.port` | MongoDB server (only used when enabled) | `YOUR_MONGODB_HOST` / `27017` |
 | `mongodb.database` / `mongodb.collection` | Where raw results are stored | `demo` / `afm-test-history-alc` |
-| `mysqldb.host` / `mysqldb.port` | MySQL server | `YOUR_MYSQL_HOST` / `3306` |
+| `mysqldb.host` / `mysqldb.port` | MySQL server | `YOUR_MYSQL_HOST` / `YOUR_MYSQL_PORT` |
 | `mysqldb.database` | Database that holds `afm_test_history` | `demodb` |
 | `anypoint.platform.host` | Control plane host. Use `eu1.anypoint.mulesoft.com` for the EU control plane. | `anypoint.mulesoft.com` |
 | `anypoint.platform.org_id` | Business group ID that owns the monitored APIs | `YOUR_ORG_ID` |
@@ -135,7 +135,7 @@ Import the project into Anypoint Studio or Anypoint Code Builder. In the run con
 -M-Danypoint.platform.auth.client_id=... -M-Danypoint.platform.auth.client_secret=...
 ```
 
-Add `-M-Dmongodb.enabled=true -M-Dmongodb.host=... -M-Dmongodb.user=... -M-Dmongodb.password=...` to enable the MongoDB archive.
+Add `-M-Dmongodb.enabled=true -M-Dmongodb.host=... -M-Dmongodb.port=... -M-Dmongodb.user=... -M-Dmongodb.password=...` to enable the MongoDB archive.
 
 Then send a sample result:
 
@@ -164,6 +164,7 @@ The app targets **Mule 4.9 LTS on Java 17**.
 5. Under **Properties**, add the secure properties and the placeholder overrides, one `name=value` per line:
    ```
    mysqldb.host=...
+   mysqldb.port=...
    mysqldb.user=...
    mysqldb.password=...
    anypoint.platform.org_id=...
@@ -175,6 +176,7 @@ The app targets **Mule 4.9 LTS on Java 17**.
    ```
    mongodb.enabled=true
    mongodb.host=...
+   mongodb.port=...
    mongodb.user=...
    mongodb.password=...
    ```
@@ -190,6 +192,7 @@ anypoint-cli-v4 runtime-mgr cloudhub-application deploy \
   --runtime 4.9.0 --releaseChannel LTS --javaVersion 17 \
   --workers 1 --workerSize 0.1 --region us-east-2 \
   --property "mysqldb.host:$MYSQL_HOST" \
+  --property "mysqldb.port:$MYSQL_PORT" \
   --property "mysqldb.user:$MYSQL_USER" \
   --property "mysqldb.password:$MYSQL_PASSWORD" \
   --property "anypoint.platform.org_id:$ANYPOINT_ORG_ID" \
@@ -203,6 +206,7 @@ To enable the MongoDB archive, add:
 ```bash
   --property "mongodb.enabled:true" \
   --property "mongodb.host:$MONGODB_HOST" \
+  --property "mongodb.port:$MONGODB_PORT" \
   --property "mongodb.user:$MONGODB_USER" \
   --property "mongodb.password:$MONGODB_PASSWORD"
 ```

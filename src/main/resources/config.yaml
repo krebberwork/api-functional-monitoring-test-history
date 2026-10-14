@@ -6,6 +6,7 @@ mongodb:
   # Optional raw-result archive. Set to "true" to store every AFM result document in MongoDB.
   enabled: "false"
   host: "YOUR_MONGODB_HOST"
+  # Must stay numeric: the port is parsed at startup even when MongoDB is disabled
   port: "27017"
   database: "demo"
   collection: "afm-test-history-alc"
@@ -16,7 +17,7 @@ mongodb:
 
 mysqldb:
   host: "YOUR_MYSQL_HOST"
-  port: "3306"
+  port: "YOUR_MYSQL_PORT"
   database: "demodb"
   # mysqldb.user and mysqldb.password are secure properties supplied at deploy time
 

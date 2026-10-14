@@ -23,7 +23,7 @@ No credentials are kept in the repo.
 - If you add a new secret, add it to `secureProperties` in `mule-artifact.json` as well.
 - BAT scripts read API credentials with `secret('<alias>') default '...'`, which resolves through Anypoint Secrets Manager. The `bat grant` command adds the alias mapping to `bat.yaml`. This only works for monitors run from a private location.
 - The example payloads and `application-types.xml` contain captured request headers. Keep their credential values redacted.
-- The repo is public. Org/env IDs, database hosts, and app/API URLs are `YOUR_...` placeholders (or `example.com` in the sample payloads). Real values are supplied as deploy-time properties, which override `config.yaml`. Don't commit real values.
+- The repo is public. Org/env IDs, database hosts and ports, and app/API URLs are `YOUR_...` placeholders (or `example.com` in the sample payloads). Real values are supplied as deploy-time properties, which override `config.yaml`. Don't commit real values.
 
 Local smoke test (once the app is running):
 
