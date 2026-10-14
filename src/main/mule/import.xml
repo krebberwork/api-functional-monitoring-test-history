@@ -54,9 +54,12 @@ http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mo
 			<choice doc:name="MongoDB Archive Enabled?" doc:id="3d0f6a2e-8c1b-4f57-9a64-2b7e5c9d1f03" >
 				<when expression="#[(Mule::p('mongodb.enabled') default 'false') == 'true']">
 					<try doc:name="Try" doc:id="7a4c2e91-5b3d-4e68-8f10-c9d2a6b4e715" >
-						<mongo:insert-document doc:name="Insert document" doc:id="6172bb49-63b6-4589-afdd-d081d1725ef3" config-ref="MongoDB_Config" collectionName="#[Mule::p('mongodb.collection')]">
-							<mongo:document><![CDATA[#[vars.afmTestHistory]]]></mongo:document>
-						</mongo:insert-document>
+						<!-- retry once on a stale pooled connection (e.g. "Prematurely reached end of stream" after idle) -->
+						<until-successful maxRetries="2" millisBetweenRetries="1000" doc:name="Until Successful" doc:id="c41e7d2b-9a35-4f80-b6e1-58d0a7f3e926" >
+							<mongo:insert-document doc:name="Insert document" doc:id="6172bb49-63b6-4589-afdd-d081d1725ef3" config-ref="MongoDB_Config" collectionName="#[Mule::p('mongodb.collection')]">
+								<mongo:document><![CDATA[#[vars.afmTestHistory]]]></mongo:document>
+							</mongo:insert-document>
+						</until-successful>
 						<error-handler >
 							<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="e5b81f3c-2d94-4a7e-b6c0-41f9d8a2c367" />
 						</error-handler>
@@ -74,13 +77,18 @@ http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mo
 					<ee:variables>
 						<ee:set-variable variableName="afmTestHistoryFlat"><![CDATA[%dw 2.0
 output application/json
+// startDate arrives as epoch seconds (older BAT) or as an ISO-8601 string (BAT 3.x); normalize to epoch seconds for FROM_UNIXTIME
+fun toEpochSeconds(d) =
+	if (d is Number) d
+	else if (d matches /.*(Z|[+-]\d\d:?\d\d)$/) (d as DateTime as Number {unit: "milliseconds"}) / 1000
+	else (((d as LocalDateTime) ++ |Z|) as Number {unit: "milliseconds"}) / 1000
 ---
 vars.afmTestHistoryExecutionHeader ++
 {
 	"endpoint_name": vars.afmTestHistoryExecutionResult.name,
 	"endpoint_api_instance_id": vars.afmTestHistoryExecutionResult.result.options.headers.'X-Api-Instance-Id',
 	"test_pass": vars.afmTestHistoryExecutionResult.pass,
-	"test_startdate": vars.afmTestHistoryExecutionResult.startDate,
+	"test_startdate": toEpochSeconds(vars.afmTestHistoryExecutionResult.startDate),
 	"test_total_time": vars.afmTestHistoryExecutionResult.time
 } ]]></ee:set-variable>
 					</ee:variables>

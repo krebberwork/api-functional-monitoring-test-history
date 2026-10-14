@@ -207,6 +207,8 @@ To enable the MongoDB archive, add:
   --property "mongodb.password:$MONGODB_PASSWORD"
 ```
 
+You can also put the properties in a file and pass `--propertiesFile <file>`. Write each line as `name:value` with **no space after the colon**. The CLI keeps that space as part of the value: `mongodb.enabled: true` becomes `" true"`, which silently disables the MongoDB archive and breaks the platform lookups.
+
 To ship a new build to an existing app, use `anypoint-cli-v4 runtime-mgr cloudhub-application modify YOUR_APP_NAME <jar>`.
 
 Once it's running, the reporter endpoint is:

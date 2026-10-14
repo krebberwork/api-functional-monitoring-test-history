@@ -44,7 +44,7 @@ The MongoDB and MySQL JDBC drivers are declared as `sharedLibraries` in the mule
     3. Runs a nested `foreach`: `result[]` (each `it should` test), then `result[].result[]` (each HTTP call). Each HTTP call becomes one flattened record.
     4. Gets the API instance ID from the request header `result.options.headers.'X-Api-Instance-Id'`. BAT title-cases header names, so the BAT script must send an `x-api-instance-id` header on every request.
     5. Calls the `GetAPINameAndId` sub-flow, which runs three Platform calls for each endpoint: a client-credentials token, the API Manager API details (`assetId`, `productVersion`), and the Exchange asset details (`name`).
-    6. Inserts the record into the MySQL table `afm_test_history`. `startDate` is epoch seconds, converted with `FROM_UNIXTIME`.
+    6. Inserts the record into the MySQL table `afm_test_history`. `startDate` arrives as epoch seconds (older BAT, and the sample payloads) or as an ISO-8601 string (real BAT 3.x runs). The flatten step normalizes it to epoch seconds for `FROM_UNIXTIME`.
 - The MySQL schema is in `src/test/resources/ddl.sql`. If you add a field, update the DDL, the flatten/append DataWeave, and the `INSERT` column list together.
 - `src/main/resources/examples/` has sample AFM payloads for a single endpoint and for multiple endpoints. Use them as the reference for the incoming JSON shape.
 
