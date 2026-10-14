@@ -223,10 +223,14 @@ http://YOUR_APP_NAME.<region>.cloudhub.io/load
 
 ## Point your monitors at the app
 
-The sample monitor suite is in [`src/test/resources/api-health-check-monitor/`](src/test/resources/api-health-check-monitor). A variant is in `src/test/resources/scripts/api-health-check-monitor/`.
+A template monitor suite is in [`src/test/resources/sample-api-monitor/`](src/test/resources/sample-api-monitor). It has two `GET` checks against one API. Copy it once per monitor you want to create.
 
-1. **`exchange.json`**: set `groupId` to your org ID.
-2. **`main.dwl`**: replace the `YOUR_API_HOST_*` URLs and `YOUR_API_INSTANCE_ID_*` values with your APIs. Keep the `x-api-instance-id` header on every request.
+Monitors should only call read-only endpoints. A `POST` that creates data would create a new record on every scheduled run.
+
+In your copy:
+
+1. **`exchange.json`**: set `groupId` to your org ID, and set `assetId` and `name` for the monitor.
+2. **`main.dwl`**: replace the `YOUR_...` host, paths, and API instance IDs with your API's values. Add or remove `it should` blocks to match the endpoints you want to check. Keep the `x-api-instance-id` header on every request.
 3. **`bat.yaml`**: set the `Custom` reporter `URL` to your deployed `/load` endpoint:
    ```yaml
    reporters:
@@ -235,16 +239,28 @@ The sample monitor suite is in [`src/test/resources/api-health-check-monitor/`](
          URL: "http://YOUR_APP_NAME.<region>.cloudhub.io/load"
          HEADERS: "'Content-Type':'application/json'"
    ```
-4. **Client credentials for the monitored APIs**: `main.dwl` reads them with `secret('clientId-alias')` and `secret('clientSecret-alias')`. They come from **Anypoint Secrets Manager**, so no credentials live in the script.
+4. **Client credentials (optional)**: skip this step if the API doesn't enforce client ID. Otherwise, uncomment the `clientId`/`clientSecret` variables and the `client_id`/`client_secret` headers in `main.dwl`. They read the values with `secret('clientId-alias')` and `secret('clientSecret-alias')` from **Anypoint Secrets Manager**, so no credentials live in the script.
    - Create symmetric-key shared secrets, with Base64-encoded values, in a secrets group in the same environment that BAT uses.
    - Grant the monitor access:
      ```bash
      bat grant -g=YOUR_SECRET_GROUP -s=clientId-alias:YOUR_CLIENT_ID_SECRET_NAME,clientSecret-alias:YOUR_CLIENT_SECRET_SECRET_NAME
      ```
-   - AFM supports Secrets Manager aliases only for monitors that run from a **private location**. For APIs that don't need client credentials, remove those headers.
-5. Upload and schedule the monitor in API Functional Monitoring.
+   - AFM supports Secrets Manager aliases only for monitors that run from a **private location**.
+   - Copy the headers into every `it should` block that calls the protected API.
+5. **Upload and schedule** the monitor. Work from a copy of the folder outside the repo with the real values filled in, so they never get committed. From inside that copy, run:
+   ```bash
+   bat                       # run locally first; every assertion should pass
+   bat location ls           # find the location ID, e.g. us-east-1
+   bat schedule create --cron="0 0/15 * 1/1 * ? *" --location=YOUR_LOCATION_ID \
+     --name="YOUR_SUITE_NAME" \
+     --custom-report-url="http://YOUR_APP_NAME.<region>.cloudhub.io/load" \
+     --custom-report-headers="Content-Type:application/json"
+   ```
+   `bat schedule create` zips the current folder, publishes it to Exchange using the version in `exchange.json`, and creates the schedule. Pass the reporter URL explicitly with `--custom-report-url` so the schedule itself carries the reporter. Check the result with `bat schedule ls` and `bat execution ls`.
+   - Exchange won't accept the same version twice. Bump `version` in `exchange.json` before re-uploading.
+   - Deleting a monitor in AFM also deletes its test asset from Exchange. Keep the suite in this repo so you can re-upload it.
 
-After the next scheduled run, you should see one row per request in `afm_test_history`, plus a new document in MongoDB if it's enabled.
+After the next scheduled run, you should see one row per request in `afm_test_history`, plus a new document in MongoDB if it's enabled. The app doesn't log successful `/load` calls. The only way to confirm that results arrive is to query the table. The app logs only errors, such as MongoDB retries or failed platform lookups.
 
 ## Project layout
 
@@ -255,4 +271,4 @@ After the next scheduled run, you should see one row per request in `afm_test_hi
 | `src/main/resources/config.yaml` | Non-secret configuration |
 | `src/main/resources/examples/` | Sample AFM result payloads |
 | `src/test/resources/ddl.sql` | MySQL schema |
-| `src/test/resources/**/api-health-check-monitor/` | Sample BAT monitor suites |
+| `src/test/resources/sample-api-monitor/` | Template BAT monitor suite |

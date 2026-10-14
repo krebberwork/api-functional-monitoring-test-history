@@ -50,4 +50,4 @@ The MongoDB and MySQL JDBC drivers are declared as `sharedLibraries` in the mule
 
 ## BAT monitor scripts
 
-`src/test/resources/api-health-check-monitor/` and `src/test/resources/scripts/api-health-check-monitor/` are two variants of the same AFM test suite (`bat.yaml`, `main.dwl`, `exchange.json`). They point at different orgs, deployments, and reporter URLs. They are not run by Maven. They are published and scheduled through the BAT CLI / API Functional Monitoring. `bat.yaml` configures a `Custom` reporter whose `URL` must point at this app's deployed `/load` endpoint.
+`src/test/resources/sample-api-monitor/` is a generic template AFM test suite (`bat.yaml`, `main.dwl`, `exchange.json`) with `YOUR_...` placeholders. Keep it generic. Don't commit a suite for a specific API. To create a real monitor, copy the folder outside the repo, fill in the values, and run `bat schedule create --custom-report-url=<app>/load` from the copy. The suite is not run by Maven. `bat.yaml` configures a `Custom` reporter whose `URL` must point at this app's deployed `/load` endpoint. Deleting a monitor in AFM also deletes its Exchange test asset.

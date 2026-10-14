@@ -1,5 +1,5 @@
 suite:
-  name: API Health Check
+  name: YOUR_SUITE_NAME
 files:
   - file: main.dwl
 reporters:
